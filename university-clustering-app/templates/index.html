@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h4 class="mb-0">University Data Imputation</h4>
+  <div><span class="text-muted me-2">{{ user }}</span><a class="btn btn-outline-secondary btn-sm" href="{{ url_for('logout') }}">Log out</a></div>
+</div>
+<p class="text-muted">Pick a university with missing data. The app finds its nearest K-means cluster (4 clusters, standardised features) using only the values it has, and fills the gaps with that cluster's average.</p>
+<div class="input-group mb-3">
+  <input id="uni" class="form-control" list="unis" placeholder="e.g. Tufts University">
+  <datalist id="unis">{% for u in universities %}<option value="{{ u }}">{% endfor %}</datalist>
+  <button class="btn btn-primary" onclick="run()">Impute missing values</button>
+</div>
+<div id="err" class="alert alert-danger d-none"></div>
+<div id="out" class="card d-none"><div class="card-body">
+  <h5 id="title" class="card-title"></h5>
+  <p class="mb-2">Nearest cluster: <span id="cluster" class="badge text-bg-primary"></span></p>
+  <p class="text-muted small mb-3">Distance to each cluster centre (standardised units): <span id="dist"></span></p>
+  <table class="table table-sm mb-0"><thead><tr><th>Missing field</th><th class="text-end">Imputed value</th></tr></thead><tbody id="rows"></tbody></table>
+  <p id="msg" class="mb-0 text-success"></p>
+</div></div>
+<script>
+async function run() {
+  const err = document.getElementById('err'), out = document.getElementById('out');
+  err.classList.add('d-none'); out.classList.add('d-none');
+  const r = await fetch('/impute', {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                   body: JSON.stringify({university: document.getElementById('uni').value})});
+  const d = await r.json();
+  if (!r.ok) { err.textContent = d.error; err.classList.remove('d-none'); return; }
+  document.getElementById('title').textContent = d.university + ' (' + d.state + ')';
+  document.getElementById('cluster').textContent = d.cluster_label;
+  document.getElementById('dist').textContent = d.distances.join(', ');
+  const rows = document.getElementById('rows'); rows.innerHTML = '';
+  for (const [k, v] of Object.entries(d.imputed)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td></td><td class="text-end"></td>';
+    tr.children[0].textContent = k; tr.children[1].textContent = v.toLocaleString();
+    rows.appendChild(tr);
+  }
+  document.getElementById('msg').textContent = d.message || '';
+  out.classList.remove('d-none');
+}
+</script>
+{% endblock %}

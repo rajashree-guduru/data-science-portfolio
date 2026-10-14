@@ -1,0 +1,8 @@
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+online-news-popularity/data/*.csv
+usa-housing-rental-analysis/data/housing.csv
+online-news-popularity/data/headline_embeddings.npy
+users.db
+university-clustering-app/users.db

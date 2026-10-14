@@ -1,0 +1,12 @@
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+scipy>=1.10
+matplotlib>=3.7
+jupyter
+flask>=3.0
+# Generative AI extensions
+sentence-transformers>=2.7
+gradio>=4.40
+requests
+# optional: openai (only if using LLM_BACKEND=openai)

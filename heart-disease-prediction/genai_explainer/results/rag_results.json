@@ -1,0 +1,156 @@
+{
+ "embedding_model": "sentence-transformers",
+ "llm_backend": "hf",
+ "llm_model": "Qwen/Qwen2.5-1.5B-Instruct",
+ "design": "grounded v5 (template facts + quoted definitions; LLM for chat)",
+ "kb_passages": 23,
+ "retrieval_hit_rate_at_4": 0.927,
+ "explanation_direction_accuracy": 1.0,
+ "chat_answers_without_hallucinated_numbers": "5/5",
+ "examples": [
+  {
+   "case": "High risk",
+   "risk": 0.979,
+   "actual_label": 1,
+   "factors": [
+    {
+     "feature": "sex",
+     "name": "Sex",
+     "value": 0,
+     "display": "female (coded 0)",
+     "contribution": 0.658,
+     "direction": "raises risk"
+    },
+    {
+     "feature": "thalach",
+     "name": "Maximum heart rate",
+     "value": 179,
+     "display": "179 bpm",
+     "contribution": 0.441,
+     "direction": "raises risk"
+    },
+    {
+     "feature": "oldpeak",
+     "name": "ST depression",
+     "value": 0,
+     "display": "0 mm",
+     "contribution": 0.437,
+     "direction": "raises risk"
+    }
+   ],
+   "retrieved": [
+    "ST depression (oldpeak)",
+    "Maximum heart rate (thalach)",
+    "ST slope (slope)",
+    "How to read a risk score"
+   ],
+   "answer": "**Risk score: 0.98**, which the model rates as high. The main reasons:\n- **Sex: female (coded 0)**, which pushed the risk score up (contribution +0.66).\n- **Maximum heart rate: 179 bpm**, which pushed the risk score up (contribution +0.44).\n- **ST depression: 0 mm**, which pushed the risk score up (contribution +0.44).\n\n**What these factors mean** _(from the project knowledge base)_:\n- **Sex:** Biological sex, coded 1 = male, 0 = female.\n- **Maximum heart rate:** Maximum heart rate (beats per minute) reached during an exercise stress test. Maximum achievable heart rate naturally declines with age.\n- **ST depression:** ST-segment depression on the ECG induced by exercise relative to rest, in millimetres. ST depression on an exercise ECG can indicate reduced blood flow to the heart muscle.\n\n_This is a screening aid built on 303 patients from one hospital, not a diagnosis._",
+   "llm_text": ""
+  },
+  {
+   "case": "Low risk",
+   "risk": 0.034,
+   "actual_label": 0,
+   "factors": [
+    {
+     "feature": "oldpeak",
+     "name": "ST depression",
+     "value": 4,
+     "display": "4 mm",
+     "contribution": -1.169,
+     "direction": "lowers risk"
+    },
+    {
+     "feature": "sex",
+     "name": "Sex",
+     "value": 0,
+     "display": "female (coded 0)",
+     "contribution": 0.658,
+     "direction": "raises risk"
+    },
+    {
+     "feature": "trestbps",
+     "name": "Resting blood pressure",
+     "value": 200,
+     "display": "200 mm Hg",
+     "contribution": -0.643,
+     "direction": "lowers risk"
+    }
+   ],
+   "retrieved": [
+    "ST depression (oldpeak)",
+    "Resting blood pressure (trestbps)",
+    "ST slope (slope)",
+    "How to read a risk score"
+   ],
+   "answer": "**Risk score: 0.03**, which the model rates as low. The main reasons:\n- **ST depression: 4 mm**, which pushed the risk score down (contribution -1.17).\n- **Sex: female (coded 0)**, which pushed the risk score up (contribution +0.66).\n- **Resting blood pressure: 200 mm Hg**, which pushed the risk score down (contribution -0.64).\n\n**What these factors mean** _(from the project knowledge base)_:\n- **ST depression:** ST-segment depression on the ECG induced by exercise relative to rest, in millimetres. ST depression on an exercise ECG can indicate reduced blood flow to the heart muscle.\n- **Sex:** Biological sex, coded 1 = male, 0 = female.\n- **Resting blood pressure:** Resting systolic blood pressure in mm Hg, measured on admission. Readings of 130 mm Hg or higher are generally considered elevated.\n\n_This is a screening aid built on 303 patients from one hospital, not a diagnosis._",
+   "llm_text": ""
+  },
+  {
+   "case": "Borderline",
+   "risk": 0.496,
+   "actual_label": 0,
+   "factors": [
+    {
+     "feature": "thalach",
+     "name": "Maximum heart rate",
+     "value": 195,
+     "display": "195 bpm",
+     "contribution": 0.683,
+     "direction": "raises risk"
+    },
+    {
+     "feature": "trestbps",
+     "name": "Resting blood pressure",
+     "value": 192,
+     "display": "192 mm Hg",
+     "contribution": -0.568,
+     "direction": "lowers risk"
+    },
+    {
+     "feature": "thal",
+     "name": "Thalassemia test result",
+     "value": 3,
+     "display": "code 3",
+     "contribution": -0.541,
+     "direction": "lowers risk"
+    }
+   ],
+   "retrieved": [
+    "Thalassemia test result (thal)",
+    "Maximum heart rate (thalach)",
+    "Resting blood pressure (trestbps)",
+    "What the model is"
+   ],
+   "answer": "**Risk score: 0.50**, which the model rates as uncertain (close to 50/50). The main reasons:\n- **Maximum heart rate: 195 bpm**, which pushed the risk score up (contribution +0.68).\n- **Resting blood pressure: 192 mm Hg**, which pushed the risk score down (contribution -0.57).\n- **Thalassemia test result: code 3**, which pushed the risk score down (contribution -0.54).\n\n**What these factors mean** _(from the project knowledge base)_:\n- **Maximum heart rate:** Maximum heart rate (beats per minute) reached during an exercise stress test. Maximum achievable heart rate naturally declines with age.\n- **Resting blood pressure:** Resting systolic blood pressure in mm Hg, measured on admission. Readings of 130 mm Hg or higher are generally considered elevated.\n- **Thalassemia test result:** Result of a thallium stress test / thalassemia indicator, coded 0-3 in this dataset.\n\n_This is a screening aid built on 303 patients from one hospital, not a diagnosis._",
+   "llm_text": ""
+  }
+ ],
+ "chat": [
+  {
+   "question": "Why is this patient borderline, and how confident is the model?",
+   "answer": "The patient has a Risk Score of 0.50, indicating uncertainty due to its proximity to 50/50. This score was influenced by several factors:\n\n1. A high Maximum Heart Rate of 195 bpm increased the risk score (+0.68), suggesting higher cardiovascular activity.\n2. Resting Blood Pressure of 192 mmHg decreased the risk score (-0.57), implying lower blood pressure might be protective against heart disease.\n3. A Thalassemia Test Result of 3 pushed the risk score down (-0.54), possibly indicating less severe heart-related issues.\n\nDespite these factors, the model still classifies the patient as having a low likelihood of heart disease based on their risk score. However, the uncertainty suggests there may be other unmeasured variables influencing the outcome.",
+   "unsupported_numbers": []
+  },
+  {
+   "question": "What does ST depression mean?",
+   "answer": "ST depression on the ECG indicates reduced blood flow to the heart muscle, suggesting potential heart disease.",
+   "unsupported_numbers": []
+  },
+  {
+   "question": "Which factor pushed the risk score up the most?",
+   "answer": "The maximum heart rate contributed the most to pushing the risk score up, with a contribution of +0.68.",
+   "unsupported_numbers": []
+  },
+  {
+   "question": "What is the thalassemia test result?",
+   "answer": "The thalassemia test result was coded as 3.",
+   "unsupported_numbers": []
+  },
+  {
+   "question": "How accurate is this model overall?",
+   "answer": "The model has an accuracy of 0.85 on the 91-patient test set and achieves 0.91 ROC-AUC, indicating good performance.",
+   "unsupported_numbers": []
+  }
+ ]
+}

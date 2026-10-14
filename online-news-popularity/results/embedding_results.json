@@ -1,0 +1,113 @@
+{
+ "model": "sentence-transformers/all-MiniLM-L6-v2",
+ "n_headlines": 39644,
+ "results": [
+  {
+   "Model": "Gradient Boosting, numeric features (benchmark)",
+   "Accuracy": 0.664,
+   "ROC-AUC": 0.728
+  },
+  {
+   "Model": "Headline TF-IDF only",
+   "Accuracy": 0.519,
+   "ROC-AUC": 0.526
+  },
+  {
+   "Model": "Headline embeddings only",
+   "Accuracy": 0.522,
+   "ROC-AUC": 0.529
+  },
+  {
+   "Model": "Gradient Boosting + embedding score",
+   "Accuracy": 0.668,
+   "ROC-AUC": 0.728
+  }
+ ],
+ "auc_change_from_embeddings": 0.0,
+ "clusters": [
+  {
+   "cluster": 11,
+   "articles": 1114,
+   "median_shares": 1800.0,
+   "popular_rate": 0.581,
+   "top_words": "facebook, ads, home, news"
+  },
+  {
+   "cluster": 0,
+   "articles": 2132,
+   "median_shares": 1600.0,
+   "popular_rate": 0.535,
+   "top_words": "photos, photo, 3d, instagram"
+  },
+  {
+   "cluster": 4,
+   "articles": 1396,
+   "median_shares": 1500.0,
+   "popular_rate": 0.524,
+   "top_words": "google, glass, gmail, maps"
+  },
+  {
+   "cluster": 10,
+   "articles": 5546,
+   "median_shares": 1500.0,
+   "popular_rate": 0.503,
+   "top_words": "cat, day, christmas, facts"
+  },
+  {
+   "cluster": 7,
+   "articles": 3362,
+   "median_shares": 1500.0,
+   "popular_rate": 0.508,
+   "top_words": "comic, trailer, game, thrones"
+  },
+  {
+   "cluster": 3,
+   "articles": 2751,
+   "median_shares": 1400.0,
+   "popular_rate": 0.481,
+   "top_words": "video, youtube, music, viral"
+  },
+  {
+   "cluster": 1,
+   "articles": 2062,
+   "median_shares": 1400.0,
+   "popular_rate": 0.498,
+   "top_words": "twitter, social, media, instagram"
+  },
+  {
+   "cluster": 2,
+   "articles": 4155,
+   "median_shares": 1400.0,
+   "popular_rate": 0.487,
+   "top_words": "nasa, space, mars, world"
+  },
+  {
+   "cluster": 6,
+   "articles": 4783,
+   "median_shares": 1400.0,
+   "popular_rate": 0.5,
+   "top_words": "tech, job, digital, business"
+  },
+  {
+   "cluster": 5,
+   "articles": 4694,
+   "median_shares": 1400.0,
+   "popular_rate": 0.48,
+   "top_words": "apple, iphone, app, apps"
+  },
+  {
+   "cluster": 9,
+   "articles": 4216,
+   "median_shares": 1400.0,
+   "popular_rate": 0.457,
+   "top_words": "bowl, super, world, nfl"
+  },
+  {
+   "cluster": 8,
+   "articles": 3433,
+   "median_shares": 1400.0,
+   "popular_rate": 0.466,
+   "top_words": "ebola, ukraine, obama, nsa"
+  }
+ ]
+}
