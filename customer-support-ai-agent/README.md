@@ -139,6 +139,21 @@ What happened:
 
 Example traces are in [`results/example_traces.md`](results/example_traces.md).
 
+## PyTorch vs TensorFlow (framework comparison)
+
+`compare_frameworks.py` rebuilds the same intent model in **TensorFlow / Keras** (`src/model_tf.py`). It uses identical data, text hashing, layer sizes, optimizer (Adam, learning rate 0.01), batch size 64 and 10 epochs, so only the framework differs.
+
+| Framework | Clean accuracy | Typo holdout accuracy | Training time | Time per message |
+|---|---|---|---|---|
+| PyTorch (custom training loop, SparseAdam) | 99.95% | 93.80% | 8.7 s | 0.09 ms |
+| TensorFlow / Keras (`compile` + `fit`) | 99.95% | 94.55% | 167.2 s | 3.05 ms |
+
+What it shows:
+
+- **Accuracy is effectively the same.** The 0.75-point typo difference comes from a single run with one random seed, so I would not call either framework more accurate.
+- **The PyTorch version trained about 19× faster here.** It updates only the embedding rows each batch uses (sparse gradients). The Keras version pads every message to 48 ids and uses the standard Adam optimizer. Speed comes from these implementation choices, not from the framework itself.
+- **The main difference is style.** In PyTorch you write the training loop yourself, while Keras runs it for you with `fit()`.
+
 ## Limitations (read before quoting the numbers)
 
 - **The data is cleaner than real support traffic.** Bitext is generated from templates, so absolute accuracy is optimistic; real chat logs would be noticeably harder. The value of this project is the **evaluation and monitoring framework**, not the headline accuracy.
@@ -151,6 +166,7 @@ Example traces are in [`results/example_traces.md`](results/example_traces.md).
 pip install -r requirements.txt
 python run_pipeline.py      # writes everything to results/
 python -m pytest -q         # guardrail tests
+python compare_frameworks.py   # optional: PyTorch vs TensorFlow (needs tensorflow)
 ```
 
 **Outputs:**
@@ -162,4 +178,4 @@ python -m pytest -q         # guardrail tests
 - `example_traces.md`
 - `summary.json`
 
-**Tools:** Python, PyTorch, scikit-learn, pandas, NumPy, SciPy, Matplotlib, pytest
+**Tools:** Python, PyTorch, TensorFlow / Keras, scikit-learn, pandas, NumPy, SciPy, Matplotlib, pytest
