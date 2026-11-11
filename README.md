@@ -1,9 +1,10 @@
 # Data Science Portfolio: Rajashree Guduru
 
-Projects from my M.S. at Sacred Heart University, covering classification, regression, clustering, driver analysis, Generative AI, a Flask web app and interactive Tableau dashboards.
+Projects from my M.S. at Sacred Heart University, covering classification, regression, clustering, driver analysis, Generative AI, a Flask web app and interactive Tableau dashboards, plus a personal project (Nov 2026) on AI agents and production drift monitoring.
 
 | Project | Question | Methods | Key result |
 |---|---|---|---|
+| [Customer-Support AI Agent](customer-support-ai-agent/) (personal project, Nov 2026) | Can an agent resolve support requests safely, and can monitoring catch drift before results drop? | PyTorch intent classifier, tool-using agent with guardrails, oracle-based agent evaluation, PSI / KS / OOV drift monitoring, retraining | **99.95% task completion, 0 wrong actions** offline; drift flagged in week 5, completion recovered 98.0% → 99.0–99.4% |
 | [Heart Disease Prediction](heart-disease-prediction/) | Can clinical measurements predict heart disease? | Logistic regression, decision tree, random forest, one-hot encoding, 10-fold CV | **0.85 accuracy, 0.91 ROC-AUC** vs. 0.52 baseline |
 | [Online News Popularity](online-news-popularity/) | What drives article shares, and can popularity be predicted? | OLS with controls, logistic regression, gradient boosting, TF-IDF headline features, permutation importance | **0.73 ROC-AUC** vs. 0.50 baseline; headline text added no lift |
 | [USA Housing Rental Analysis](usa-housing-rental-analysis/) | What drives rental prices across 385K U.S. listings? | Data cleaning, random forest, gradient boosting, state-level prediction-error analysis | **R² 0.00 → 0.76** after cleaning; typical error \$176/month |
