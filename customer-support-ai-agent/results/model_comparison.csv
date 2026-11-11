@@ -1,0 +1,4 @@
+model,clean_val_accuracy,clean_val_macro_f1,typo_holdout_accuracy,typo_holdout_macro_f1
+TF-IDF + Logistic Regression (scikit-learn baseline),0.9986,0.9986,0.941,0.9418
+PyTorch fastText-style classifier v1,0.9995,0.9995,0.938,0.9376
+PyTorch classifier v2 (retrained after drift),0.9995,0.9995,0.9418,0.9413

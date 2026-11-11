@@ -1,0 +1,50 @@
+{
+  "dataset_rows": 26872,
+  "splits": {
+    "train": 12951,
+    "val": 2158,
+    "prod_clean": 6477,
+    "typo_prod": 3171,
+    "typo_val": 793,
+    "typo_holdout": 1322
+  },
+  "chosen_confidence_threshold": 0.9,
+  "offline_agent": {
+    "conversations": 2000,
+    "task_completion_rate": 0.9995,
+    "trajectory_match_rate": 0.965,
+    "wrong_action_rate": 0.0,
+    "escalation_rate": 0.0,
+    "clarification_rate": 0.006,
+    "avg_turns": 1.228,
+    "intent_accuracy": 0.9995
+  },
+  "retrain": {
+    "retrain_after_week": 6,
+    "reviewed_messages_added": 800,
+    "reference_window_messages": 200
+  },
+  "models": [
+    {
+      "model": "TF-IDF + Logistic Regression (scikit-learn baseline)",
+      "clean_val_accuracy": 0.9986,
+      "clean_val_macro_f1": 0.9986,
+      "typo_holdout_accuracy": 0.941,
+      "typo_holdout_macro_f1": 0.9418
+    },
+    {
+      "model": "PyTorch fastText-style classifier v1",
+      "clean_val_accuracy": 0.9995,
+      "clean_val_macro_f1": 0.9995,
+      "typo_holdout_accuracy": 0.938,
+      "typo_holdout_macro_f1": 0.9376
+    },
+    {
+      "model": "PyTorch classifier v2 (retrained after drift)",
+      "clean_val_accuracy": 0.9995,
+      "clean_val_macro_f1": 0.9995,
+      "typo_holdout_accuracy": 0.9418,
+      "typo_holdout_macro_f1": 0.9413
+    }
+  ]
+}
