@@ -1,0 +1,3 @@
+framework,clean_val_accuracy,clean_val_macro_f1,typo_holdout_accuracy,typo_holdout_macro_f1,train_seconds,ms_per_message
+"PyTorch (custom training loop, SparseAdam)",0.9995,0.9995,0.938,0.9376,8.7,0.09
+TensorFlow / Keras (compile + fit),0.9995,0.9995,0.9455,0.9452,167.2,3.05
